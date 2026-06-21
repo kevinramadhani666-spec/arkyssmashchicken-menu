@@ -1,0 +1,1397 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arkys Smash Chicken - Menu Digital</title>
+
+    <link rel="icon" href="img/logo-arkys.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --kuning: #ffc107;
+        --merah: #d32f2f;
+        --merah-gelap: #b71c1c;
+        --biru: #1976d2;
+        --hijau: #388e3c;
+        --hitam: #212121;
+        --putih: #fff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      }
+      html,
+      body {
+        height: 100%;
+        min-height: 100vh;
+      }
+
+      body {
+        background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+        color: var(--hitam);
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        flex-direction: column;
+        transition: background 0.7s ease;
+      }
+
+      body.warna-merah {
+        background: linear-gradient(135deg, #fff5f5 0%, #ffd6d6 100%);
+      }
+      body.warna-biru {
+        background: linear-gradient(135deg, #f5f9ff 0%, #d6e8ff 100%);
+      }
+      body.warna-hijau {
+        background: linear-gradient(135deg, #f5fff7 0%, #d6ffe8 100%);
+      }
+      body.warna-kuning {
+        background: linear-gradient(135deg, #fffdf5 0%, #ffecb3 100%);
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+      }
+
+      header {
+        background: linear-gradient(90deg, var(--merah), var(--merah-gelap));
+        color: var(--putih);
+        padding: 16px 5%;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      }
+      .nav-wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      header h1 {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+      }
+
+      nav {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      nav a {
+        color: var(--putih);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        background: rgba(0, 0, 0, 0.35);
+        padding: 8px 14px;
+        border-radius: 8px;
+        white-space: nowrap;
+        transition: 0.3s;
+      }
+      nav a:hover {
+        background: var(--kuning);
+        color: var(--hitam);
+        transform: translateY(-2px);
+      }
+      .menu-toggle {
+        display: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: var(--putih);
+      }
+
+      main {
+        flex: 1;
+      }
+
+      .hero {
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)),
+          url("img/bg-arkys.png") center/cover no-repeat;
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--putih);
+        padding: 20px;
+      }
+      .hero div {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(8px);
+        padding: 50px 30px;
+        border-radius: 20px;
+        max-width: 700px;
+        border: 2px solid rgba(255, 193, 7, 0.3);
+        animation: fadeUp 0.8s ease;
+      }
+      .hero h2 {
+        font-size: 2.8rem;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+      }
+      .btn {
+        background: linear-gradient(90deg, var(--kuning), #ffa000);
+        color: var(--hitam);
+        padding: 15px 30px;
+        border-radius: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 1rem;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+        margin-top: 15px;
+        cursor: pointer;
+        border: none;
+      }
+      .btn:hover {
+        transform: translateY(-4px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(255, 193, 7, 0.6);
+      }
+
+      .menu-section {
+        padding: 80px 5%;
+        position: relative;
+        opacity: 0;
+        transform: translateY(50px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease,
+          background 0.7s ease;
+        margin-bottom: 0;
+      }
+      .menu-section.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .menu-section.merah {
+        background: linear-gradient(180deg, #ffea 0%, #ffd6d6 100%);
+      }
+      .menu-section.biru {
+        background: linear-gradient(180deg, #eaf3ff 0%, #d6e8ff 100%);
+      }
+      .menu-section.hijau {
+        background: linear-gradient(180deg, #eafff0 0%, #d6ffe8 100%);
+      }
+      .menu-section.kuning {
+        background: linear-gradient(180deg, #fff8e1 0%, #ffecb3 100%);
+      }
+
+      .section-title {
+        display: inline-block;
+        background: linear-gradient(
+          135deg,
+          var(--merah) 0%,
+          var(--merah-gelap) 100%
+        );
+        color: var(--putih);
+        text-align: center;
+        font-size: 2.2rem;
+        padding: 16px 45px;
+        border-radius: 60px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        box-shadow: 0 8px 25px rgba(211, 47, 47, 0.5);
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 3px solid var(--kuning);
+        transition: 0.4s;
+      }
+      .section-title:hover {
+        transform: translateX(-50%) scale(1.05);
+      }
+      .section-divider {
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--kuning), #ffa000);
+        margin: 0 auto 45px;
+        border-radius: 2px;
+      }
+
+      .menu-card {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(10px);
+        padding: 35px;
+        border-radius: 25px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
+        border: 3px solid rgba(255, 255, 255, 0.5);
+        transition: 0.4s;
+      }
+      .menu-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 35px 70px rgba(0, 0, 0, 0.25);
+      }
+
+      .menu-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 18px;
+        cursor: zoom-in;
+        transition: 0.3s;
+      }
+      .menu-img:hover {
+        transform: scale(1.01);
+      }
+
+      /* STYLE KONTAK WA */
+      .wa-section {
+        padding: 80px 5%;
+        background: linear-gradient(180deg, #fff5f5 0%, #fef2f2 100%);
+      }
+      .wa-title {
+        text-align: center;
+        margin-bottom: 45px;
+      }
+      .wa-title h2 {
+        font-size: 2.2rem;
+        color: #991b1b;
+        margin-bottom: 10px;
+        font-weight: 800;
+      }
+      .wa-title p {
+        color: #7c3a3a;
+        font-size: 16px;
+      }
+
+      .wa-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 22px;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .wa-card {
+        background: linear-gradient(145deg, #ffffff 0%, #fff1f1 100%);
+        border: 2px solid #fecaca;
+        border-radius: 18px;
+        padding: 22px;
+        text-decoration: none;
+        color: #1f2937;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .wa-card.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .wa-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(220, 38, 38, 0.3);
+        border-color: #dc2626;
+      }
+
+      .wa-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #dc2626, #ef4444, #f87171);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+      }
+
+      .wa-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .wa-badge {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        background: linear-gradient(135deg, #059669, #10b981);
+        color: white;
+        font-size: 10px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+      }
+
+      .wa-nama {
+        font-size: 19px;
+        font-weight: 800;
+        color: #991b1b;
+        margin-bottom: 8px;
+      }
+      .wa-nomor {
+        font-size: 15px;
+        color: #6b7280;
+        margin-bottom: 16px;
+        font-weight: 500;
+      }
+
+      .wa-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #25d366, #22c55e);
+        color: white;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .wa-card:hover .wa-btn {
+        transform: scale(1.05);
+        box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
+      }
+
+      /* MODAL PESAN KOTAKAN */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        backdrop-filter: blur(5px);
+      }
+
+      .modal.active {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 25px;
+        max-width: 800px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+        border: 4px solid var(--kuning);
+        position: relative;
+        animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 32px;
+        color: var(--merah);
+        cursor: pointer;
+        background: none;
+        border: none;
+        font-weight: bold;
+        z-index: 10;
+        transition: 0.3s;
+      }
+      .modal-close:hover {
+        transform: rotate(90deg) scale(1.2);
+        color: var(--merah-gelap);
+      }
+
+      .modal-header {
+        background: linear-gradient(135deg, var(--merah), var(--merah-gelap));
+        color: white;
+        padding: 30px;
+        text-align: center;
+        border-radius: 20px 20px 0 0;
+      }
+      .modal-header h2 {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+      .modal-header p {
+        opacity: 0.9;
+        font-size: 14px;
+      }
+
+      .modal-body {
+        padding: 30px;
+      }
+
+      .modal-info {
+        background: #fff8e1;
+        border-left: 4px solid var(--kuning);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        font-size: 14px;
+        color: #5d4037;
+      }
+
+      .modal-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+      }
+
+      .modal-card {
+        background: linear-gradient(145deg, #fff 0%, #fff5f5 100%);
+        border: 2px solid #fecaca;
+        border-radius: 15px;
+        padding: 18px;
+        text-decoration: none;
+        color: #1f2937;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .modal-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--merah);
+        box-shadow: 0 10px 25px rgba(220, 38, 38, 0.25);
+      }
+
+      .modal-nama {
+        font-size: 17px;
+        font-weight: 800;
+        color: #991b1b;
+        margin-bottom: 5px;
+      }
+
+      .modal-nomor {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 10px;
+      }
+
+      .modal-wa {
+        display: inline-block;
+        background: linear-gradient(135deg, #25d366, #22c55e);
+        color: white;
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .promo {
+        background: linear-gradient(135deg, var(--kuning), #ffa000);
+        text-align: center;
+        padding: 60px 5%;
+        position: relative;
+        margin: 0;
+      }
+      .promo::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--merah);
+      }
+      .promo h3 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        color: var(--hitam);
+      }
+      .promo p {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--hitam);
+      }
+
+      footer {
+        background: var(--hitam);
+        color: var(--putih);
+        text-align: center;
+        padding: 30px;
+        font-size: 0.9rem;
+        border-top: 4px solid var(--kuning);
+        margin-top: 0;
+      }
+
+      #zoomOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+        cursor: zoom-out;
+        padding: 20px;
+      }
+      #zoomImg {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 15px;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        html {
+          scroll-padding-top: 70px;
+        }
+        .nav-wrap {
+          flex-direction: column;
+          align-items: flex-start;
+          position: relative;
+        }
+        .menu-toggle {
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+        nav {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          margin-top: 15px;
+          background: rgba(0, 0, 0, 0.15);
+          padding: 12px;
+          border-radius: 10px;
+        }
+        nav.active {
+          display: flex;
+        }
+        nav a {
+          width: 100%;
+          text-align: center;
+        }
+        .hero h2 {
+          font-size: 1.9rem;
+        }
+        .section-title {
+          font-size: 1.5rem;
+          padding: 12px 30px;
+          letter-spacing: 1.5px;
+        }
+        .menu-card {
+          padding: 20px;
+          border-radius: 18px;
+        }
+        .menu-section {
+          padding: 60px 4%;
+        }
+        .wa-grid {
+          grid-template-columns: 1fr;
+        }
+        .modal-grid {
+          grid-template-columns: 1fr;
+        }
+        .modal-content {
+          max-height: 85vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="nav-wrap">
+        <h1>Arkys Smash Chicken</h1>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <nav id="navbar">
+          <a href="#chicken">Chicken</a>
+          <a href="#chicken-flavor">Varian Rasa</a>
+          <a href="#crisbar">Crisbar</a>
+          <a href="#fish-beef">Fish Beef</a>
+          <a href="#drink">Minuman</a>
+          <a href="#ice-cream">Ice Cream</a>
+          <a href="#kontak">Kontak</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h2>Arkys Smash Chicken</h2>
+          <p>Pesan Kotakan Untuk Acara</p>
+          <button class="btn" onclick="openModal()">🎉 Pesan Sekarang</button>
+        </div>
+      </section>
+
+      <section id="chicken" class="menu-section" data-warna="merah">
+        <h3 class="section-title">Chicken Menu</h3>
+        <div class="section-divider"></div>
+        <div class="menu-card">
+          <img
+            src="img/chicken-menu.png"
+            alt="Chicken Menu"
+            class="menu-img"
+            onclick="zoomImg(this)"
+          />
+        </div>
+      </section>
+
+      <section id="chicken-flavor" class="menu-section" data-warna="merah">
+        <h3 class="section-title">Smash Chicken Flavour</h3>
+        <div class="section-divider"></div>
+        <div class="menu-card">
+          <img
+            src="img/chicken-flavor-menu.png"
+            alt="Varian Rasa"
+            class="menu-img"
+            onclick="zoomImg(this)"
+          />
+        </div>
+      </section>
+
+      <section id="crisbar" class="menu-section" data-warna="kuning">
+        <h3 class="section-title">Crisbar & Paket Hemat</h3>
+        <div class="section-divider"></div>
+        <div class="menu-card">
+          <img
+            src="img/crisbar-menu.png"
+            alt="Crisbar Menu"
+            class="menu-img"
+            onclick="zoomImg(this)"
+          />
+        </div>
+      </section>
+
+      <section id="fish-beef" class="menu-section" data-warna="biru">
+        <h3 class="section-title">Fish Beef Snack Corner</h3>
+        <div class="section-divider"></div>
+        <div class="menu-card">
+          <img
+            src="img/fish-beef-menu.png"
+            alt="Fish Beef"
+            class="menu-img"
+            onclick="zoomImg(this)"
+          />
+        </div>
+      </section>
+
+      <section id="drink" class="menu-section" data-warna="biru">
+        <h3 class="section-title">Minuman Segar</h3>
+        <div class="section-divider"></div>
+        <div class="menu-card">
+          <img
+            src="img/drink-menu.png"
+            alt="Minuman"
+            class="menu-img"
+            onclick="zoomImg(this)"
+          />
+        </div>
+      </section>
+
+      <section id="ice-cream" class="menu-section" data-warna="hijau">
+        <h3 class="section-title">Ice Cream Sundae</h3>
+        <div class="section-divider"></div>
+        <div class="menu-card">
+          <img
+            src="img/ice-cream-menu.png"
+            alt="Ice Cream"
+            class="menu-img"
+            onclick="zoomImg(this)"
+          />
+        </div>
+      </section>
+
+      <!-- SECTION KONTAK WA LENGKAP 23 CABANG -->
+      <section id="kontak" class="wa-section">
+        <div class="wa-title">
+          <h2>📍 Info Reservasi Outlet Samarinda</h2>
+          <p>Pilih cabang terdekat, langsung chat admin. Respon cepat!</p>
+        </div>
+
+        <div class="wa-grid">
+          <a
+            href="https://wa.me/6282191687320?text=Halo%20Admin%20Arkys%20Ahmad%20Yani%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Ahmad Yani</div>
+            <div class="wa-nomor">0821 9168 7320</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6282125626381?text=Halo%20Admin%20Arkys%20Air%20Putih%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Air Putih</div>
+            <div class="wa-nomor">0821 2562 6381</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6281241203806?text=Halo%20Admin%20Arkys%20APT%20Pranoto%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">APT Pranoto</div>
+            <div class="wa-nomor">0812 4120 3806</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6285753504166?text=Halo%20Admin%20Arkys%20Bendang%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Bendang</div>
+            <div class="wa-nomor">0857 5350 4166</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6281349811643?text=Halo%20Admin%20Arkys%20Bukit%20Pinang%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Bukit Pinang</div>
+            <div class="wa-nomor">0813 4981 1643</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6282254333594?text=Halo%20Admin%20Arkys%20Gunung%20Lingai%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Gunung Lingai</div>
+            <div class="wa-nomor">0822 5433 3594</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6282353384526?text=Halo%20Admin%20Arkys%20Jelawat%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Jelawat</div>
+            <div class="wa-nomor">0823 5338 4526</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6285822787449?text=Halo%20Admin%20Arkys%20Kadrie%20Oening%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Kadrie Oening</div>
+            <div class="wa-nomor">0858 2278 7449</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6282156999628?text=Halo%20Admin%20Arkys%20Ks.%20Tubun%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Ks. Tubun</div>
+            <div class="wa-nomor">0821 5699 9628</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6281241202910?text=Halo%20Admin%20Arkys%20Lambung%20Mangkurat%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Lambung Mangkurat</div>
+            <div class="wa-nomor">0812 4120 2910</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6282220800294?text=Halo%20Admin%20Arkys%20Loa%20Bakung%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Loa Bakung</div>
+            <div class="wa-nomor">0822 2080 0294</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6282191082816?text=Halo%20Admin%20Arkys%20Loa%20Duri%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Loa Duri</div>
+            <div class="wa-nomor">0821 9108 2816</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6281255970844?text=Halo%20Admin%20Arkys%20Loa%20Janan%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Loa Janan</div>
+            <div class="wa-nomor">0812 5597 0844</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6285652210242?text=Halo%20Admin%20Arkys%20M.%20Said%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">M. Said</div>
+            <div class="wa-nomor">0856 5221 0242</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6282358002259?text=Halo%20Admin%20Arkys%20Mugirejo%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Mugirejo</div>
+            <div class="wa-nomor">0823 5800 2259</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/62838365443026?text=Halo%20Admin%20Arkys%20Palaran%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Palaran</div>
+            <div class="wa-nomor">0838 6544 3026</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6282156347490?text=Halo%20Admin%20Arkys%20Pattimura%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Pattimura</div>
+            <div class="wa-nomor">0821 5634 7490</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/62822252973757?text=Halo%20Admin%20Arkys%20Pramuka%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Pramuka</div>
+            <div class="wa-nomor">0822 5297 3757</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/62812255862827?text=Halo%20Admin%20Arkys%20Rapak%20Dalam%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Rapak Dalam</div>
+            <div class="wa-nomor">0812 5586 2827</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6282254336331?text=Halo%20Admin%20Arkys%20Rapak%20Indah%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Rapak Indah</div>
+            <div class="wa-nomor">0822 5433 6331</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6282220800382?text=Halo%20Admin%20Arkys%20Sempaja%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Sempaja</div>
+            <div class="wa-nomor">0822 2080 0382</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6282338629553?text=Halo%20Admin%20Arkys%20Ulin%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Ulin</div>
+            <div class="wa-nomor">0823 3862 9553</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+
+          <a
+            href="https://wa.me/6285771990677?text=H
+          n%20Admin%20Arkys%20Karpotek%2C%20mau%20reservasi%20meja"
+            target="_blank"
+            class="wa-card"
+          >
+            <span class="wa-badge">HALAL</span>
+            <div class="wa-nama">Karpotek</div>
+            <div class="wa-nomor">0857 7199 0677</div>
+            <div class="wa-btn">💬 Chat Admin</div>
+          </a>
+        </div>
+      </section>
+
+      <section class="promo">
+        <h3>JAM BUKA</h3>
+        <p>08.00-22.00 WITA</p>
+      </section>
+         
+
+      <!-- ======== TEMPEL QR DI SINI ======== -->
+      <section class="qr-section">
+        <h3>Scan QR untuk Akses Cepat</h3>
+        <div class="qr-box">
+          <div class="qr-frame">
+            <img 
+              src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tight-paper-07e4.kevinramadhani666.workers.dev/&color=212121&bgcolor=ffffff&qzone=1" 
+              alt="QR Code" 
+              class="qr-img" 
+            />
+            <div class="qr-logo"></div>
+          </div>
+        </div>
+        <p class="qr-note"></p>
+      </section>
+      <!-- ======== SELESAI QR ======== -->
+
+    </main>  <!-- tutup main -->
+
+    <footer> <!-- baru footer -->
+    </main>
+
+    <footer>
+      <p>
+        Copyright 2026 Arkys Smash Chicken Samarinda | Instagram TikTok
+        arkyssmashchicken.id
+      </p>
+    </footer>
+
+    <div id="zoomOverlay" onclick="closeZoom()">
+      <img id="zoomImg" src="" />
+    </div>
+
+    <!-- MODAL PESAN KOTAKAN ACARA -->
+    <div id="modalPesan" class="modal" onclick="closeModal(event)">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+
+        <div class="modal-header">
+          <h2>🎉 Pesan Kotakan Untuk Acara</h2>
+          <p>Pilih outlet terdekat untuk pemesanan catering & paket acara</p>
+        </div>
+
+        <div class="modal-body">
+          <div class="modal-info">
+            💡 <b>Tips:</b> Klik cabang di bawah ini untuk langsung chat admin.
+            Sebutkan tanggal acara, jumlah porsi, dan menu yang diinginkan ya!
+          </div>
+
+          <div class="modal-grid">
+            <a
+              href="https://wa.me/6282191687320?text=Halo%20Admin%20Arkys%20Ahmad%20Yani%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Ahmad Yani</div>
+              <div class="modal-nomor">0821 9168 7320</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6282125626381?text=Halo%20Admin%20Arkys%20Air%20Putih%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Air Putih</div>
+              <div class="modal-nomor">0821 2562 6381</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6281241203806?text=Halo%20Admin%20Arkys%20APT%20Pranoto%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">APT Pranoto</div>
+              <div class="modal-nomor">0812 4120 3806</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6285753504166?text=Halo%20Admin%20Arkys%20Bendang%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Bendang</div>
+              <div class="modal-nomor">0857 5350 4166</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6281349811643?text=Halo%20Admin%20Arkys%20Bukit%20Pinang%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Bukit Pinang</div>
+              <div class="modal-nomor">0813 4981 1643</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6282254333594?text=Halo%20Admin%20Arkys%20Gunung%20Lingai%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Gunung Lingai</div>
+              <div class="modal-nomor">0822 5433 3594</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6282353384526?text=Halo%20Admin%20Arkys%20Jelawat%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Jelawat</div>
+              <div class="modal-nomor">0823 5338 4526</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6285822787449?text=Halo%20Admin%20Arkys%20Kadrie%20Oening%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Kadrie Oening</div>
+              <div class="modal-nomor">0858 2278 7449</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6282156999628?text=Halo%20Admin%20Arkys%20Ks.%20Tubun%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Ks. Tubun</div>
+              <div class="modal-nomor">0821 5699 9628</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6281241202910?text=Halo%20Admin%20Arkys%20Lambung%20Mangkurat%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Lambung Mangkurat</div>
+              <div class="modal-nomor">0812 4120 2910</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6282220800294?text=Halo%20Admin%20Arkys%20Loa%20Bakung%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Loa Bakung</div>
+              <div class="modal-nomor">0822 2080 0294</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6282191082816?text=Halo%20Admin%20Arkys%20Loa%20Duri%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Loa Duri</div>
+              <div class="modal-nomor">0821 9108 2816</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6281255970844?text=Halo%20Admin%20Arkys%20Loa%20Janan%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Loa Janan</div>
+              <div class="modal-nomor">0812 5597 0844</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6285652210242?text=Halo%20Admin%20Arkys%20M.%20Said%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">M. Said</div>
+              <div class="modal-nomor">0856 5221 0242</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6282358002259?text=Halo%20Admin%20Arkys%20Mugirejo%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Mugirejo</div>
+              <div class="modal-nomor">0823 5800 2259</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/62838365443026?text=Halo%20Admin%20Arkys%20Palaran%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Palaran</div>
+              <div class="modal-nomor">0838 6544 3026</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6282156347490?text=Halo%20Admin%20Arkys%20Pattimura%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Pattimura</div>
+              <div class="modal-nomor">0821 5634 7490</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/62822252973757?text=Halo%20Admin%20Arkys%20Pramuka%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Pramuka</div>
+              <div class="modal-nomor">0822 5297 3757</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/62812255862827?text=Halo%20Admin%20Arkys%20Rapak%20Dalam%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Rapak Dalam</div>
+              <div class="modal-nomor">0812 5586 2827</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6282254336331?text=Halo%20Admin%20Arkys%20Rapak%20Indah%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Rapak Indah</div>
+              <div class="modal-nomor">0822 5433 6331</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6282220800382?text=Halo%20Admin%20Arkys%20Sempaja%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Sempaja</div>
+              <div class="modal-nomor">0822 2080 0382</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6282338629553?text=Halo%20Admin%20Arkys%20Ulin%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Ulin</div>
+              <div class="modal-nomor">0823 3862 9553</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+
+            <a
+              href="https://wa.me/6285771990677?text=Halo%20Admin%20Arkys%20Karpotek%2C%20saya%20mau%20pesan%20kotakan%20untuk%20acara"
+              target="_blank"
+              class="modal-card"
+            >
+              <div class="modal-nama">Karpotek</div>
+              <div class="modal-nomor">0857 7199 0677</div>
+              <div class="modal-wa">💬 Pesan Kotakan</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleMenu() {
+        document.getElementById("navbar").classList.toggle("active");
+      }
+      function zoomImg(img) {
+        document.getElementById("zoomImg").src = img.src;
+        document.getElementById("zoomOverlay").style.display = "flex";
+      }
+      function closeZoom() {
+        document.getElementById("zoomOverlay").style.display = "none";
+      }
+
+      // FUNCTION MODAL PESAN KOTAKAN
+      function openModal() {
+        document.getElementById("modalPesan").classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal(event) {
+        if (
+          !event ||
+          event.target.id === "modalPesan" ||
+          event.target.className === "modal-close"
+        ) {
+          document.getElementById("modalPesan").classList.remove("active");
+          document.body.style.overflow = "auto";
+        }
+      }
+
+      const sections = document.querySelectorAll(".menu-section");
+      const waCards = document.querySelectorAll(".wa-card");
+      const body = document.body;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+              const warna = entry.target.getAttribute("data-warna");
+              if (warna) {
+                body.classList.remove(
+                  "warna-merah",
+                  "warna-biru",
+                  "warna-hijau",
+                  "warna-kuning",
+                );
+                sections.forEach((s) =>
+                  s.classList.remove("merah", "biru", "hijau", "kuning"),
+                );
+                body.classList.add("warna-" + warna);
+                entry.target.classList.add(warna);
+              }
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+
+      sections.forEach((section) => observer.observe(section));
+
+      const waObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add("show");
+              }, index * 60);
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
+
+      waCards.forEach((card) => waObserver.observe(card));
+
+      document.querySelectorAll("nav a").forEach((link) => {
+        link.addEventListener("click", () =>
+          document.getElementById("navbar").classList.remove("active"),
+        );
+      });
+
+      // ESC untuk tutup modal
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeModal();
+        }
+      });
+    </script>
+  </body>
+</html>
